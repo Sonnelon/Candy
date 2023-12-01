@@ -1,0 +1,101 @@
+﻿<Window x:Name="window" x:Class="CandyCat.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CandyCat" xmlns:controls="clr-namespace:System.Windows.Controls;assembly=DotNetProjects.Input.Toolkit"
+        Title="MainWindow"  Background="#81c5db"
+        WindowState="Maximized" Height="840">
+
+    <Window.Resources>
+
+        <Style x:Key="RoundedButton" TargetType="Button">
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="20" Background="{TemplateBinding Background}">
+
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+    </Window.Resources>
+
+    <Grid Width="1530" Margin="0,10,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"  />
+            <RowDefinition/>
+
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" MinWidth="1222" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+
+
+
+        <ListView x:Name="SweetsListView" Margin="20,10,45,40" SelectionChanged="SweetsListView_SelectionChanged" Grid.Row="1" Background="#b5e7f7">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="6" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Width="180" Height="180">
+                        <TextBlock Text="{Binding Path=Id}" VerticalAlignment="Top" Margin="5,0,0,0" FontWeight="Bold" Visibility="Hidden"/>
+                        <Image Source="{Binding Path=Photo}" Width="100" Height="100" HorizontalAlignment="Stretch" />
+                        <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Top" Margin="5,0,0,0" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Path=Price, StringFormat={}{0:F2} RUB}"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5,0,0,0" FontWeight="Bold"/>
+                        <Button x:Name="addButton" Click="SweetAddClick"  Width="30" Height="25" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,5" Background="Wheat" Opacity="0.8" MouseEnter="addButton_MouseEnter">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="5.5">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                            <Button.Content>
+                                <Image Source="C:\Users\tzeen\source\repos\Candy\plus.png" Width="25" Height="25"/>
+                            </Button.Content>
+
+                        </Button>
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+
+
+        <StackPanel Orientation='Vertical'  Grid.Row="0" Margin="20,30,0,18" HorizontalAlignment="Left" Width="228" >
+            <controls:AutoCompleteBox x:Name='SearchBox' Opacity="0.6"  Width="226" Height="25" 
+                                      LostFocus="Search_LostFocus" GotFocus="Search_GotFocus" TextChanged="SearchBox_TextChanged"  />
+        </StackPanel>
+        <ComboBox x:Name="TypeComboBox" HorizontalAlignment="Left" Margin="280,30,0,18" VerticalAlignment="Top" Width="150" SelectionChanged="TypeComboBox_SelectionChanged">
+            <Border BorderBrush="Black" BorderThickness="1"/>
+        </ComboBox>
+        <ComboBox x:Name="SortTextBox" HorizontalAlignment="Left" Margin="458,30,0,18" VerticalAlignment="Top" Width="200" SelectionChanged="ComboBox_SelectionChanged"/>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,100,0,515" >
+
+
+            <Button  Style="{StaticResource RoundedButton}" x:Name="CartButton"  Height="50" Width="250" Background="#87ace8" FontFamily="Arial Black" FontSize="24" Click="CartButton_Click" MouseEnter="CartButton_MouseEnter" MouseLeave="CartButton_MouseLeave"/>
+           
+            <Border Margin="0,-95,50,0" Padding="5" BorderThickness="1" x:Name="CourtCount" Background="DeepPink" CornerRadius="10" HorizontalAlignment="Right" Height="16" Width="37"/>
+            <TextBlock x:Name="TextBlockCount" TextAlignment="Center" Text="1" Margin="10,-95,60,0" HorizontalAlignment="Right" Height="16" Width="16"/>
+            <TextBlock Text="Корзина" TextAlignment="Center"  Margin="0,-45,0,0" Width="104" Height="25" FontFamily="Arial Black" FontSize="20"/>
+        </StackPanel>
+
+
+
+
+    </Grid>
+</Window>
